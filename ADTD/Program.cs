@@ -39,7 +39,7 @@ namespace ADTD
 
             xml = xml.Replace("{Keys}", "").Replace("{Nodes}", nodes).Replace("{Edges}", edges);
 
-            string fileName = $"ADTD_{DateTime.Now:yyyyMMdd_HHmmss}.txt"; // "nicetimestamp"
+            string fileName = $"ADTD_{DateTime.Now:yyyyMMdd_HHmmss}.xml"; // "nicetimestamp"
             string filePath = Path.Combine(Environment.CurrentDirectory, fileName);
 
             File.WriteAllText(filePath, xml);

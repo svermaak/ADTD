@@ -1,0 +1,290 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 900px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#F58518", "id": "f4ecd14f-7ee5-4674-8b6b-f8a2b00dc232", "label": "ittelligence.com", "shape": "dot", "title": "\u003cb\u003eittelligence.com\u003c/b\u003e\u003cbr/\u003eType: Forest\u003cbr/\u003eID: f4ecd14f-7ee5-4674-8b6b-f8a2b00dc232\u003cbr/\u003eName: ittelligence.com\u003cbr/\u003elabels: :Forest"}, {"color": "#72B7B2", "id": "3545daa5-2d45-4bc8-bb87-2f80a52edd86", "label": "Default-First-Site-Name", "shape": "dot", "title": "\u003cb\u003eDefault-First-Site-Name\u003c/b\u003e\u003cbr/\u003eType: Site\u003cbr/\u003eID: 3545daa5-2d45-4bc8-bb87-2f80a52edd86\u003cbr/\u003eName: Default-First-Site-Name\u003cbr/\u003elabels: :Site"}, {"color": "#EECA3B", "id": "074d85c7-3d23-4f89-979b-8873048ad684", "label": "DEFAULTIPSITELINK", "shape": "dot", "title": "\u003cb\u003eDEFAULTIPSITELINK\u003c/b\u003e\u003cbr/\u003eType: SiteLink\u003cbr/\u003eID: 074d85c7-3d23-4f89-979b-8873048ad684\u003cbr/\u003eName: DEFAULTIPSITELINK\u003cbr/\u003elabels: :SiteLink"}, {"color": "#E45756", "id": "811e0fa6-8229-4a01-b59a-7f6ce95f595d", "label": "WIN-1G6SD1QHRV0.ittelligence.com", "shape": "dot", "title": "\u003cb\u003eWIN-1G6SD1QHRV0.ittelligence.com\u003c/b\u003e\u003cbr/\u003eType: Server\u003cbr/\u003eID: 811e0fa6-8229-4a01-b59a-7f6ce95f595d\u003cbr/\u003eName: WIN-1G6SD1QHRV0.ittelligence.com\u003cbr/\u003elabels: :Server"}, {"color": "#54A24B", "id": "d6674c25-d042-4a34-9cdd-0cb03f8b7375", "label": "DC=ittelligence,DC=com", "shape": "dot", "title": "\u003cb\u003eDC=ittelligence,DC=com\u003c/b\u003e\u003cbr/\u003eType: Partition\u003cbr/\u003eID: d6674c25-d042-4a34-9cdd-0cb03f8b7375\u003cbr/\u003eName: DC=ittelligence,DC=com\u003cbr/\u003elabels: :Partition"}, {"color": "#54A24B", "id": "7e2d8450-3243-4a81-b869-fd3adddffd4c", "label": "CN=Configuration,DC=ittelligence,DC=com", "shape": "dot", "title": "\u003cb\u003eCN=Configuration,DC=ittelligence,DC=com\u003c/b\u003e\u003cbr/\u003eType: Partition\u003cbr/\u003eID: 7e2d8450-3243-4a81-b869-fd3adddffd4c\u003cbr/\u003eName: CN=Configuration,DC=ittelligence,DC=com\u003cbr/\u003elabels: :Partition"}, {"color": "#54A24B", "id": "7d338f9e-f4a8-4a58-a081-7b9321cdde6f", "label": "CN=Schema,CN=Configuration,DC=ittelligence,DC=com", "shape": "dot", "title": "\u003cb\u003eCN=Schema,CN=Configuration,DC=ittelligence,DC=com\u003c/b\u003e\u003cbr/\u003eType: Partition\u003cbr/\u003eID: 7d338f9e-f4a8-4a58-a081-7b9321cdde6f\u003cbr/\u003eName: CN=Schema,CN=Configuration,DC=ittelligence,DC=com\u003cbr/\u003elabels: :Partition"}, {"color": "#54A24B", "id": "cddf3eed-74d3-4471-bfe6-0d8cb331d9cf", "label": "DC=DomainDnsZones,DC=ittelligence,DC=com", "shape": "dot", "title": "\u003cb\u003eDC=DomainDnsZones,DC=ittelligence,DC=com\u003c/b\u003e\u003cbr/\u003eType: Partition\u003cbr/\u003eID: cddf3eed-74d3-4471-bfe6-0d8cb331d9cf\u003cbr/\u003eName: DC=DomainDnsZones,DC=ittelligence,DC=com\u003cbr/\u003elabels: :Partition"}, {"color": "#54A24B", "id": "4c3a0182-3a9d-476f-b0ce-c90001de9b43", "label": "DC=ForestDnsZones,DC=ittelligence,DC=com", "shape": "dot", "title": "\u003cb\u003eDC=ForestDnsZones,DC=ittelligence,DC=com\u003c/b\u003e\u003cbr/\u003eType: Partition\u003cbr/\u003eID: 4c3a0182-3a9d-476f-b0ce-c90001de9b43\u003cbr/\u003eName: DC=ForestDnsZones,DC=ittelligence,DC=com\u003cbr/\u003elabels: :Partition"}, {"color": "#4C78A8", "id": "89d34abd-37fc-4f07-8d51-9231aeb8dc00", "label": "ittelligence.com", "shape": "dot", "title": "\u003cb\u003eittelligence.com\u003c/b\u003e\u003cbr/\u003eType: Domain\u003cbr/\u003eID: 89d34abd-37fc-4f07-8d51-9231aeb8dc00\u003cbr/\u003eName: ittelligence.com\u003cbr/\u003elabels: :Domain"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "f4ecd14f-7ee5-4674-8b6b-f8a2b00dc232", "label": "Root Domain", "title": "\u003cb\u003eRoot Domain\u003c/b\u003e\u003cbr/\u003eid: d6426c5f-e63b-4caf-a0b7-41ce2f82a389\u003cbr/\u003elabel: Root Domain\u003cbr/\u003elabels: Root Domain", "to": "89d34abd-37fc-4f07-8d51-9231aeb8dc00"}, {"arrows": "to", "from": "f4ecd14f-7ee5-4674-8b6b-f8a2b00dc232", "label": "Global Catalog", "title": "\u003cb\u003eGlobal Catalog\u003c/b\u003e\u003cbr/\u003eid: 4e48a2d1-c14b-4b34-8de6-f1ee3fede3f3\u003cbr/\u003elabel: Global Catalog\u003cbr/\u003elabels: Global Catalog", "to": "811e0fa6-8229-4a01-b59a-7f6ce95f595d"}, {"arrows": "to", "from": "3545daa5-2d45-4bc8-bb87-2f80a52edd86", "label": "Linked To", "title": "\u003cb\u003eLinked To\u003c/b\u003e\u003cbr/\u003eid: 26784337-10be-4eca-9c07-bfc4dfe92516\u003cbr/\u003elabel: Linked To\u003cbr/\u003elabels: Linked To", "to": "f4ecd14f-7ee5-4674-8b6b-f8a2b00dc232"}, {"arrows": "to", "from": "3545daa5-2d45-4bc8-bb87-2f80a52edd86", "label": "Site Link", "title": "\u003cb\u003eSite Link\u003c/b\u003e\u003cbr/\u003eCost: 100\u003cbr/\u003eid: dece6fb0-f822-443b-8f83-a2ad7fb5165a\u003cbr/\u003elabel: Site Link\u003cbr/\u003elabels: Site Link", "to": "074d85c7-3d23-4f89-979b-8873048ad684"}, {"arrows": "to", "from": "3545daa5-2d45-4bc8-bb87-2f80a52edd86", "label": "Inter Site Topology Generator", "title": "\u003cb\u003eInter Site Topology Generator\u003c/b\u003e\u003cbr/\u003eid: e1fa2d88-e1de-4285-bdf1-b7bd04f40007\u003cbr/\u003elabel: Inter Site Topology Generator\u003cbr/\u003elabels: Inter Site Topology Generator", "to": "811e0fa6-8229-4a01-b59a-7f6ce95f595d"}, {"arrows": "to", "from": "811e0fa6-8229-4a01-b59a-7f6ce95f595d", "label": "Directory Server", "title": "\u003cb\u003eDirectory Server\u003c/b\u003e\u003cbr/\u003eid: a935467d-d053-4dc1-a93e-73646948c0a3\u003cbr/\u003elabel: Directory Server\u003cbr/\u003elabels: Directory Server", "to": "3545daa5-2d45-4bc8-bb87-2f80a52edd86"}, {"arrows": "to", "from": "811e0fa6-8229-4a01-b59a-7f6ce95f595d", "label": "Hosts", "title": "\u003cb\u003eHosts\u003c/b\u003e\u003cbr/\u003eid: 7f638b2f-ee74-452a-a96b-b5b6ce85d43b\u003cbr/\u003elabel: Hosts\u003cbr/\u003elabels: Hosts", "to": "d6674c25-d042-4a34-9cdd-0cb03f8b7375"}, {"arrows": "to", "from": "811e0fa6-8229-4a01-b59a-7f6ce95f595d", "label": "Hosts", "title": "\u003cb\u003eHosts\u003c/b\u003e\u003cbr/\u003eid: beb4633f-7ced-4ad2-8a95-44fc19243a19\u003cbr/\u003elabel: Hosts\u003cbr/\u003elabels: Hosts", "to": "7e2d8450-3243-4a81-b869-fd3adddffd4c"}, {"arrows": "to", "from": "811e0fa6-8229-4a01-b59a-7f6ce95f595d", "label": "Hosts", "title": "\u003cb\u003eHosts\u003c/b\u003e\u003cbr/\u003eid: 8d45ba55-8c75-429d-810b-d78c66d147c5\u003cbr/\u003elabel: Hosts\u003cbr/\u003elabels: Hosts", "to": "7d338f9e-f4a8-4a58-a081-7b9321cdde6f"}, {"arrows": "to", "from": "811e0fa6-8229-4a01-b59a-7f6ce95f595d", "label": "Hosts", "title": "\u003cb\u003eHosts\u003c/b\u003e\u003cbr/\u003eid: 78e52fb8-d469-4ee6-a85f-cc46f0d6094d\u003cbr/\u003elabel: Hosts\u003cbr/\u003elabels: Hosts", "to": "cddf3eed-74d3-4471-bfe6-0d8cb331d9cf"}, {"arrows": "to", "from": "811e0fa6-8229-4a01-b59a-7f6ce95f595d", "label": "Hosts", "title": "\u003cb\u003eHosts\u003c/b\u003e\u003cbr/\u003eid: 1474b853-f458-4f3d-86b7-5c6d729689b0\u003cbr/\u003elabel: Hosts\u003cbr/\u003elabels: Hosts", "to": "4c3a0182-3a9d-476f-b0ce-c90001de9b43"}, {"arrows": "to", "from": "89d34abd-37fc-4f07-8d51-9231aeb8dc00", "label": "Part of Forest", "title": "\u003cb\u003ePart of Forest\u003c/b\u003e\u003cbr/\u003eid: b2b82b09-5138-421a-b71f-86f2c80ed671\u003cbr/\u003elabel: Part of Forest\u003cbr/\u003elabels: Part of Forest", "to": "f4ecd14f-7ee5-4674-8b6b-f8a2b00dc232"}, {"arrows": "to", "from": "89d34abd-37fc-4f07-8d51-9231aeb8dc00", "label": "Rid Role Owner", "title": "\u003cb\u003eRid Role Owner\u003c/b\u003e\u003cbr/\u003eid: 9aaed5fe-eb24-4888-bbd6-8920fc4914f1\u003cbr/\u003elabel: Rid Role Owner\u003cbr/\u003elabels: Rid Role Owner", "to": "811e0fa6-8229-4a01-b59a-7f6ce95f595d"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics",
+            "layout",
+            "interaction"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.2,
+            "damping": 0.09,
+            "gravitationalConstant": -20000,
+            "springConstant": 0.02,
+            "springLength": 180
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    
+<!-- Export toolbar (injected) -->
+<div id="export-toolbar" style="
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+">
+  <div style="display:flex; gap:8px; align-items:center;">
+    <button id="btn-save-png" style="padding:6px 10px; cursor:pointer;">Save PNG</button>
+    <button id="btn-save-svg" style="padding:6px 10px; cursor:pointer;">Save SVG</button>
+  </div>
+  <div style="margin-top:6px; font-size:12px; color:#555;">
+    Exports the current view
+  </div>
+</div>
+
+<!-- canvas2svg for SVG export -->
+<script src="https://cdn.jsdelivr.net/npm/canvas2svg@1.0.16/canvas2svg.js"></script>
+
+<script>
+(function () {
+  function downloadBlob(filename, blob) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
+
+  function getNetworkCanvas() {
+    // PyVis generated HTML usually contains: var network = new vis.Network(...)
+    if (typeof network === "undefined" || !network.canvas || !network.canvas.frame || !network.canvas.frame.canvas) {
+      return null;
+    }
+    return network.canvas.frame.canvas;
+  }
+
+  document.getElementById("btn-save-png").addEventListener("click", function () {
+    var canvas = getNetworkCanvas();
+    if (!canvas) {
+      alert("Could not find the vis-network canvas (variable 'network').");
+      return;
+    }
+    try {
+      var dataUrl = canvas.toDataURL("image/png");
+      var a = document.createElement("a");
+      a.href = dataUrl;
+      a.download = "graph.png";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (e) {
+      alert("PNG export failed: " + e);
+    }
+  });
+
+  document.getElementById("btn-save-svg").addEventListener("click", function () {
+    var canvas = getNetworkCanvas();
+    if (!canvas) {
+      alert("Could not find the vis-network canvas (variable 'network').");
+      return;
+    }
+    if (typeof C2S === "undefined") {
+      alert("SVG export library (canvas2svg) not loaded.");
+      return;
+    }
+
+    try {
+      var width = canvas.width;
+      var height = canvas.height;
+
+      // Create SVG context
+      var ctx = new C2S(width, height);
+
+      // Monkeypatch getContext so vis-network draws into our SVG context
+      var originalGetContext = canvas.getContext.bind(canvas);
+      canvas.getContext = function (type) {
+        if (type === "2d") return ctx;
+        return originalGetContext(type);
+      };
+
+      // Redraw into SVG context
+      network.redraw();
+
+      // Restore normal drawing
+      canvas.getContext = originalGetContext;
+      network.redraw();
+
+      // Serialize SVG
+      var svgText = ctx.getSerializedSvg(true);
+      var blob = new Blob([svgText], { type: "image/svg+xml;charset=utf-8" });
+      downloadBlob("graph.svg", blob);
+    } catch (e) {
+      alert("SVG export failed: " + e);
+    }
+  });
+})();
+</script>
+<!-- /Export toolbar (injected) -->
+
+</body>
+</html>

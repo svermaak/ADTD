@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+
+<graph id="G" edgedefault="directed">
+
+<node id="f4ecd14f-7ee5-4674-8b6b-f8a2b00dc232" labels=":Forest"><data key="labels">:Forest</data><data key="Name">ittelligence.com</data></node>
+<node id="3545daa5-2d45-4bc8-bb87-2f80a52edd86" labels=":Site"><data key="labels">:Site</data><data key="Name">Default-First-Site-Name</data></node>
+<node id="074d85c7-3d23-4f89-979b-8873048ad684" labels=":SiteLink"><data key="labels">:SiteLink</data><data key="Name">DEFAULTIPSITELINK</data></node>
+<node id="811e0fa6-8229-4a01-b59a-7f6ce95f595d" labels=":Server"><data key="labels">:Server</data><data key="Name">WIN-1G6SD1QHRV0.ittelligence.com</data></node>
+<node id="d6674c25-d042-4a34-9cdd-0cb03f8b7375" labels=":Partition"><data key="labels">:Partition</data><data key="Name">DC=ittelligence,DC=com</data></node>
+<node id="7e2d8450-3243-4a81-b869-fd3adddffd4c" labels=":Partition"><data key="labels">:Partition</data><data key="Name">CN=Configuration,DC=ittelligence,DC=com</data></node>
+<node id="7d338f9e-f4a8-4a58-a081-7b9321cdde6f" labels=":Partition"><data key="labels">:Partition</data><data key="Name">CN=Schema,CN=Configuration,DC=ittelligence,DC=com</data></node>
+<node id="cddf3eed-74d3-4471-bfe6-0d8cb331d9cf" labels=":Partition"><data key="labels">:Partition</data><data key="Name">DC=DomainDnsZones,DC=ittelligence,DC=com</data></node>
+<node id="4c3a0182-3a9d-476f-b0ce-c90001de9b43" labels=":Partition"><data key="labels">:Partition</data><data key="Name">DC=ForestDnsZones,DC=ittelligence,DC=com</data></node>
+<node id="89d34abd-37fc-4f07-8d51-9231aeb8dc00" labels=":Domain"><data key="labels">:Domain</data><data key="Name">ittelligence.com</data></node>
+
+<edge id="26784337-10be-4eca-9c07-bfc4dfe92516" source="3545daa5-2d45-4bc8-bb87-2f80a52edd86" target="f4ecd14f-7ee5-4674-8b6b-f8a2b00dc232" label="Linked To"><data key="labels">Linked To</data></edge>
+<edge id="dece6fb0-f822-443b-8f83-a2ad7fb5165a" source="3545daa5-2d45-4bc8-bb87-2f80a52edd86" target="074d85c7-3d23-4f89-979b-8873048ad684" label="Site Link"><data key="labels">Site Link</data><data key="Cost">100</data></edge>
+<edge id="e1fa2d88-e1de-4285-bdf1-b7bd04f40007" source="3545daa5-2d45-4bc8-bb87-2f80a52edd86" target="811e0fa6-8229-4a01-b59a-7f6ce95f595d" label="Inter Site Topology Generator"><data key="labels">Inter Site Topology Generator</data></edge>
+<edge id="a935467d-d053-4dc1-a93e-73646948c0a3" source="811e0fa6-8229-4a01-b59a-7f6ce95f595d" target="3545daa5-2d45-4bc8-bb87-2f80a52edd86" label="Directory Server"><data key="labels">Directory Server</data></edge>
+<edge id="7f638b2f-ee74-452a-a96b-b5b6ce85d43b" source="811e0fa6-8229-4a01-b59a-7f6ce95f595d" target="d6674c25-d042-4a34-9cdd-0cb03f8b7375" label="Hosts"><data key="labels">Hosts</data></edge>
+<edge id="beb4633f-7ced-4ad2-8a95-44fc19243a19" source="811e0fa6-8229-4a01-b59a-7f6ce95f595d" target="7e2d8450-3243-4a81-b869-fd3adddffd4c" label="Hosts"><data key="labels">Hosts</data></edge>
+<edge id="8d45ba55-8c75-429d-810b-d78c66d147c5" source="811e0fa6-8229-4a01-b59a-7f6ce95f595d" target="7d338f9e-f4a8-4a58-a081-7b9321cdde6f" label="Hosts"><data key="labels">Hosts</data></edge>
+<edge id="78e52fb8-d469-4ee6-a85f-cc46f0d6094d" source="811e0fa6-8229-4a01-b59a-7f6ce95f595d" target="cddf3eed-74d3-4471-bfe6-0d8cb331d9cf" label="Hosts"><data key="labels">Hosts</data></edge>
+<edge id="1474b853-f458-4f3d-86b7-5c6d729689b0" source="811e0fa6-8229-4a01-b59a-7f6ce95f595d" target="4c3a0182-3a9d-476f-b0ce-c90001de9b43" label="Hosts"><data key="labels">Hosts</data></edge>
+<edge id="d6426c5f-e63b-4caf-a0b7-41ce2f82a389" source="f4ecd14f-7ee5-4674-8b6b-f8a2b00dc232" target="89d34abd-37fc-4f07-8d51-9231aeb8dc00" label="Root Domain"><data key="labels">Root Domain</data></edge>
+<edge id="b2b82b09-5138-421a-b71f-86f2c80ed671" source="89d34abd-37fc-4f07-8d51-9231aeb8dc00" target="f4ecd14f-7ee5-4674-8b6b-f8a2b00dc232" label="Part of Forest"><data key="labels">Part of Forest</data></edge>
+<edge id="f9e6c8f4-c087-49a1-a06a-00961087dfd0" source="89d34abd-37fc-4f07-8d51-9231aeb8dc00" target="811e0fa6-8229-4a01-b59a-7f6ce95f595d" label="Domain Controller"><data key="labels">Domain Controller</data></edge>
+<edge id="dca272bf-36ff-4c05-8c49-bcced6f6390c" source="89d34abd-37fc-4f07-8d51-9231aeb8dc00" target="811e0fa6-8229-4a01-b59a-7f6ce95f595d" label="Infrastructure Role Owner"><data key="labels">Infrastructure Role Owner</data></edge>
+<edge id="da31ffee-5d4b-4090-96ed-2a29e4ef4acc" source="89d34abd-37fc-4f07-8d51-9231aeb8dc00" target="811e0fa6-8229-4a01-b59a-7f6ce95f595d" label="Pdc Role Owner"><data key="labels">Pdc Role Owner</data></edge>
+<edge id="9aaed5fe-eb24-4888-bbd6-8920fc4914f1" source="89d34abd-37fc-4f07-8d51-9231aeb8dc00" target="811e0fa6-8229-4a01-b59a-7f6ce95f595d" label="Rid Role Owner"><data key="labels">Rid Role Owner</data></edge>
+<edge id="fc1deb2b-2133-4ff4-80df-c55636bcc9b6" source="f4ecd14f-7ee5-4674-8b6b-f8a2b00dc232" target="811e0fa6-8229-4a01-b59a-7f6ce95f595d" label="Naming Role Owner"><data key="labels">Naming Role Owner</data></edge>
+<edge id="c926eaaa-86d8-442e-af40-79cfab9e09a0" source="f4ecd14f-7ee5-4674-8b6b-f8a2b00dc232" target="811e0fa6-8229-4a01-b59a-7f6ce95f595d" label="Schema Role Owner"><data key="labels">Schema Role Owner</data></edge>
+<edge id="4e48a2d1-c14b-4b34-8de6-f1ee3fede3f3" source="f4ecd14f-7ee5-4674-8b6b-f8a2b00dc232" target="811e0fa6-8229-4a01-b59a-7f6ce95f595d" label="Global Catalog"><data key="labels">Global Catalog</data></edge>
+</graph>
+</graphml>
